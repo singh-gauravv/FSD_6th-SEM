@@ -18,12 +18,12 @@ let books = [
     },
 ];
 
-// Get all books
+
 app.get("/api/books", (req, res) => {
     res.json(books);
 });
 
-// Get book by ID
+
 app.get("/api/books/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const book = books.find(book => book.id === id);
@@ -35,7 +35,7 @@ app.get("/api/books/:id", (req, res) => {
     }
 });
 
-// Start server
+
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
