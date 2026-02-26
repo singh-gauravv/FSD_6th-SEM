@@ -1,32 +1,41 @@
-const express = require('express');
-const app = express()
-const PORT = 3000;
+import express from 'express';
 
-let books =[
+const app = express();
+const PORT = 7000;
+
+app.use(express.json());
+
+let books = [
     {
         id: 1,
         title: "The Great Gatsby",
-        author : 'F. Scott Fitzgerald'
+        author: "F. Scott Fitzgerald"
     },
     {
         id: 2,
-        title: " To Kill a Mockingbird",
-        author : 'Harper Lee'
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee"
     },
 ];
 
-app.get('/api/books',(req,res)=>{
+// Get all books
+app.get("/api/books", (req, res) => {
     res.json(books);
 });
 
-app.get('/api/books/:id',(req,res)=>{
+// Get book by ID
+app.get("/api/books/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    const book= books.find(book=>book.id===id);
-    if(book){
-        res.json(book);
-    }
-})
+    const book = books.find(book => book.id === id);
 
-app.listen(PORT,(req,res)=>{
-    console.log('Server is running at 3000')
-})
+    if (book) {
+        res.json(book);
+    } else {
+        res.status(404).json({ message: "Book not found" });
+    }
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+});
